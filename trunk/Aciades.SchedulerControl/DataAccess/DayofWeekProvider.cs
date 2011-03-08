@@ -9,9 +9,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using Aciades.Businessnext.SchedulerControl.Common;
+using Aciades.BusinessNext.SchedulerControl.Common;
 
-namespace Aciades.Businessnext.SchedulerControl.DataAccess
+namespace Aciades.BusinessNext.SchedulerControl.DataAccess
 {
     public class DayofWeekProvider :ObservableCollection<UIElement>
     {

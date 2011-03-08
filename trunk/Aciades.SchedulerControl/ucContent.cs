@@ -9,10 +9,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using Aciades.Businessnext.SchedulerControl.Common;
-using Aciades.Businessnext.SchedulerControl.DataAccess;
+using Aciades.BusinessNext.SchedulerControl.Common;
+using Aciades.BusinessNext.SchedulerControl.DataAccess;
 
-namespace Aciades.Businessnext.SchedulerControl
+namespace Aciades.BusinessNext.SchedulerControl
 {
     public class ucContent : ContentControl
     {
@@ -47,6 +47,7 @@ namespace Aciades.Businessnext.SchedulerControl
         private void OnTimeSlotPerHour_Changed(DependencyPropertyChangedEventArgs e)
         {
             TimeSlotPerHour = (Enumerations.TimeSlotsPerHour)e.NewValue;
+            PopulateContent();
         }
 
         public Enumerations.HoursPerDay HoursPerDay
@@ -62,6 +63,7 @@ namespace Aciades.Businessnext.SchedulerControl
         private void OnHoursPerDay_Changed(DependencyPropertyChangedEventArgs e)
         {
             HoursPerDay = (Enumerations.HoursPerDay)e.NewValue;
+            PopulateContent();
         }
 
 
@@ -74,11 +76,11 @@ namespace Aciades.Businessnext.SchedulerControl
 
         // Using a DependencyProperty as the backing store for CurrentDate.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CurrentDateProperty =
-            DependencyProperty.Register("CurrentDate", typeof(DateTime), typeof(ucContent), new PropertyMetadata((s,e)=> ((ucContent)s).OnCurrentDate_Changed(e)));
+            DependencyProperty.Register("CurrentDate", typeof(DateTime), typeof(ucContent), new PropertyMetadata((s, e) => ((ucContent)s).OnCurrentDate_Changed(e)));
 
         private void OnCurrentDate_Changed(DependencyPropertyChangedEventArgs e)
         {
-            CurrentDate = (DateTime) e.NewValue;
+            CurrentDate = (DateTime)e.NewValue;
         }
 
         #endregion
@@ -99,10 +101,27 @@ namespace Aciades.Businessnext.SchedulerControl
 
         private void PopulateContent()
         {
-            ContentItemProvider provider = new ContentItemProvider(this);
+            SettingsProvider settingsProvider = new SettingsProvider();
+            settingsProvider.SettingsLoaded += OnSettingLoaded;
+            settingsProvider.RequestSettings("");
+        }
 
+        private void OnSettingLoaded(object sender, DownloadStringCompletedEventArgs e)
+        {
+            ContentItemProvider provider = new ContentItemProvider(this);
             ObservableCollection<UIElement> items = null;
+            //TODO: Remove Hardcoding
+
+            var settings = (sender as SettingsProvider);
+            settings.SettingsLoaded -= OnSettingLoaded;
+
+            var loopHours = 24 / settings.HoursPerDay;
+            var loopMinutues = 60 / settings.TimeSlotPerHour;
+            var TimeSlotItemHeight = (settings.TimeSlotHeight * loopMinutues) * loopHours; ;
             
+            var parts = 60 / settings.TimeSlotPerHour;
+            
+            var dayContentItemHeight = TimeSlotItemHeight / parts;
 
             switch (CurrentDateView)
             {
@@ -116,7 +135,11 @@ namespace Aciades.Businessnext.SchedulerControl
                         foreach (var uiElement in items)
                         {
                             if (uiElement.GetType() != typeof(Grid))
+                            {
                                 (uiElement as DayContentItem).AddItem_Clicked += ucContent_AddItem_Clicked;
+                                (uiElement as DayContentItem).Height = dayContentItemHeight;
+
+                            }
 
                         }
                     }
@@ -136,6 +159,7 @@ namespace Aciades.Businessnext.SchedulerControl
                                 foreach (var element in ((uiElement as Border).Child as StackPanel).Children)
                                 {
                                     (element as DayContentItem).AddItem_Clicked += ucContent_AddItem_Clicked;
+                                    (element as DayContentItem).Height = dayContentItemHeight;
                                     weekContent.Width = (element as DayContentItem).Width;
                                 }
                         }

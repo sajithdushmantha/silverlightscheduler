@@ -9,8 +9,8 @@
     <ProjectTypeGuids>{A1591282-1198-4647-A2B1-27E5FF5F6F3B};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Aciades.Businessnext.SchedulerControl</RootNamespace>
-    <AssemblyName>Aciades.Businessnext.SchedulerControl</AssemblyName>
+    <RootNamespace>Aciades.BusinessNext.SchedulerControl</RootNamespace>
+    <AssemblyName>Aciades.BusinessNext.SchedulerControl</AssemblyName>
     <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
@@ -28,7 +28,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>Bin\Debug</OutputPath>
+    <OutputPath>..\..\..\Lib\</OutputPath>
     <DefineConstants>DEBUG;TRACE;SILVERLIGHT</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
@@ -47,14 +47,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Acidaes.BusinessNext.UI.Silverlight">
-      <HintPath>E:\KunalR\BN_NewSources\SDK\Lib\Acidaes.BusinessNext.UI.Silverlight.dll</HintPath>
+      <HintPath>External\Acidaes.BusinessNext.UI.Silverlight.dll</HintPath>
     </Reference>
     <Reference Include="Acidaes.UI.Silverlight">
       <HintPath>External\Acidaes.UI.Silverlight.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Expression.Interactions, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\KunalR\BN_NewSources\Lib\Microsoft\Microsoft.Expression.Interactions.dll</HintPath>
+      <HintPath>..\..\..\..\Lib\Microsoft\Microsoft.Expression.Interactions.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="System.Windows" />
@@ -63,17 +63,20 @@
     <Reference Include="System.Windows.Controls.Navigation, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Windows.Controls.Toolkit, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>External\System.Windows.Controls.Toolkit.dll</HintPath>
+      <HintPath>..\..\..\..\Lib\Modules\System.Windows.Controls.Toolkit.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Net" />
     <Reference Include="System.Windows.Browser" />
+    <Reference Include="System.Xml.Linq, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.XPath, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Enumerations.cs" />
     <Compile Include="ContentControlBase.cs" />
     <Compile Include="DataAccess\ContentItemProvider.cs" />
     <Compile Include="DataAccess\DayofWeekProvider.cs" />
+    <Compile Include="DataAccess\SettingProvider.cs" />
     <Compile Include="DataAccess\TimeSlotProvider.cs" />
     <Compile Include="DayContent.cs" />
     <Compile Include="DayContentItem.cs" />
@@ -115,6 +118,10 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

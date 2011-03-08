@@ -9,7 +9,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
-namespace Aciades.Businessnext.SchedulerControl
+namespace Aciades.BusinessNext.SchedulerControl
 {
     public class DayContentItem : ContentControlBase
     {

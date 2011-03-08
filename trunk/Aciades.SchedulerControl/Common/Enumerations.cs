@@ -9,7 +9,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
-namespace Aciades.Businessnext.SchedulerControl.Common
+namespace Aciades.BusinessNext.SchedulerControl.Common
 {
     public class Enumerations
     {
