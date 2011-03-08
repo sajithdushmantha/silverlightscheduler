@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aciades.Businessnext.SchedulerControl", "Aciades.SchedulerControl\Aciades.Businessnext.SchedulerControl.csproj", "{AEF05E79-E004-4557-980A-05778D819183}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScheduleControlTest", "ScheduleControlTest\ScheduleControlTest.csproj", "{5D1E1816-BE04-45C8-A2EB-F54DDEA274CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScheduleControlTest.Web", "ScheduleControlTest.Web\ScheduleControlTest.Web.csproj", "{A77149DD-EA7E-413E-9AA3-08AB36300ADC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AEF05E79-E004-4557-980A-05778D819183}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEF05E79-E004-4557-980A-05778D819183}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEF05E79-E004-4557-980A-05778D819183}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEF05E79-E004-4557-980A-05778D819183}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D1E1816-BE04-45C8-A2EB-F54DDEA274CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D1E1816-BE04-45C8-A2EB-F54DDEA274CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D1E1816-BE04-45C8-A2EB-F54DDEA274CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D1E1816-BE04-45C8-A2EB-F54DDEA274CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A77149DD-EA7E-413E-9AA3-08AB36300ADC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A77149DD-EA7E-413E-9AA3-08AB36300ADC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A77149DD-EA7E-413E-9AA3-08AB36300ADC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A77149DD-EA7E-413E-9AA3-08AB36300ADC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

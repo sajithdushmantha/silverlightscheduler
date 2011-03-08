@@ -1,0 +1,407 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sc="clr-namespace:Aciades.Businessnext.SchedulerControl"
+     xmlns:DragDrop="clr-namespace:Acidaes.UI.Silverlight.DragDrop;assembly=Acidaes.UI.Silverlight">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Aciades.Businessnext.SchedulerControl;component/Resources.Styles/SchedulerStyles.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <Style TargetType="sc:SchedulerCalender">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="sc:SchedulerCalender">
+                    <Grid Background="Transparent">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <sc:ViewVariation x:Name="_VV" Grid.Row="0" Grid.Column="0"
+                                          CurrentDateView="{TemplateBinding CurrentDateView}"/>
+                        <sc:TimeunitVariation Grid.Row="0" Grid.Column="1"/>
+                        <Border x:Name="border"
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
+                                Background="Transparent"
+                                BorderBrush="Gray"
+                                BorderThickness="0.3">
+                            <Grid x:Name="outerGrid"
+                                  Background="Gray">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Border x:Name="headerBorder"
+                                        BorderThickness="0"
+                                        Background="Transparent"
+                                        Grid.Row="0"
+                                        Grid.Column="0">
+                                    <sc:SchedulerHeader  x:Name="scHeader"/>
+                                </Border>
+                                <Grid x:Name="mainGrid"
+                                      Grid.Row="1"
+                                      Grid.Column="0"
+                                      Background="White"
+                                      HorizontalAlignment="Stretch"
+                                      VerticalAlignment="Stretch">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="20"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="30"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <sc:DaysOfWeek x:Name="_DOW"
+                                                   Height="19"
+                                                   CurrentDate="{TemplateBinding CurrentDate}"
+                                                   CurrentDateView="{TemplateBinding CurrentDateView}"
+                                                   Grid.Row="0" Grid.Column="1"/>
+                                    <sc:ucContent x:Name="_content"
+                                                  CurrentDateView="{TemplateBinding CurrentDateView}"
+                                                  TimeSlotPerHour="{TemplateBinding TimeSlotPerHour}"
+                                                  HoursPerDay="{TemplateBinding HoursPerDay}"
+                                                  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"/>
+
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="sc:SchedulerHeader">
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="sc:SchedulerHeader">
+                    <Border  Background="#A8A9AD"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <TextBlock Text="Timeline"
+                                   FontWeight="Bold"
+                                   Foreground="White"
+                                   Margin="5"
+                                   VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="sc:TimeunitVariation">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Grid x:Name="unitVariationGrid"
+                              Grid.Row="0"
+                              Grid.Column="1"
+                              HorizontalAlignment="Right"
+                              Width="300"
+                              Margin="0,0,0,10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="10*" />
+                            <ColumnDefinition Width="7*" />
+                            <ColumnDefinition Width="7*" />
+                            <ColumnDefinition Width="7*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Display in :"
+                                       Grid.Row="0"
+                                       Grid.Column="0"
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Center" />
+                        <Slider x:Name="unitSlider"
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Grid.ColumnSpan="3"
+                                    Margin="0,0,35,0"
+                                    HorizontalAlignment="Stretch"
+                                    LargeChange="50"
+                                    SmallChange="50"
+                                    Maximum="100"
+                                    Minimum="0"
+                    
+                    Style="{StaticResource BasicSlider}" />
+                        <TextBlock Text="Seconds"
+                                       Grid.Row="1"
+                                       Grid.Column="1"
+                                       VerticalAlignment="Top"
+                                       HorizontalAlignment="Stretch" />
+                        <TextBlock Text="Minutes"
+                                       Grid.Row="1"
+                                       Grid.Column="2"
+                                       VerticalAlignment="Top"
+                                       HorizontalAlignment="Stretch" />
+                        <TextBlock Text="Hours"
+                                       Grid.Row="1"
+                                       Grid.Column="3"
+                                       VerticalAlignment="Top"
+                                       HorizontalAlignment="Stretch" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="sc:ucContent">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="sc:ucContent">
+                    <ContentPresenter />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="sc:TimeSlots">
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical"/>
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="sc:TimeSlots">
+                    <Border BorderBrush="Black"
+                            BorderThickness="1">
+                        <ItemsPresenter/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="sc:TimeSlotItem">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="sc:TimeSlotItem">
+                    <Border
+                        x:Name="BrdRoot"
+                        Width="{TemplateBinding Width}"
+                        VerticalAlignment="Top"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="Black"
+                        BorderThickness="1"
+                        Height="{TemplateBinding Height}"
+                        >
+                        <StackPanel
+                            Orientation="Horizontal"
+                            VerticalAlignment="Top"
+                            HorizontalAlignment="Center">
+                            <TextBlock
+                                Foreground="#9493CF"
+                                FontSize="16"
+                                Margin="0,3,0,0"
+                                VerticalAlignment="Top"
+                                Text="{TemplateBinding Hour}"/>
+                            <TextBlock
+                                Foreground="#9493CF"
+                                Margin="1.5,0,0,0"
+                                VerticalAlignment="Top"
+                                Text="{TemplateBinding Minute}" />
+                        </StackPanel>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="sc:DayOfWeekContentItem">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="sc:DayOfWeekContentItem">
+                    <Border x:Name="brdRoot" 
+                            BorderThickness="1" 
+                            BorderBrush="Black"
+                            Width="{TemplateBinding Width}">
+                        <Grid >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       TextAlignment="Center"
+                                       Text="{TemplateBinding DayString}"
+                                       Margin="2,0,0,0"/>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="sc:ViewVariation">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="sc:ViewVariation">
+                    <Grid x:Name="viewVariationGrid"
+                          HorizontalAlignment="Left"
+                          Width="300"
+                          Margin="0,0,0,10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="10*" />
+                            <ColumnDefinition Width="7*" />
+                            <ColumnDefinition Width="7*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Variation :"
+                                       Grid.Row="0"
+                                       Grid.Column="0"
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Center" />
+                        <Slider x:Name="viewSlider"
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Grid.ColumnSpan="2"
+                                    Margin="0"
+                                    HorizontalAlignment="Stretch"
+                                    LargeChange="100"
+                                    SmallChange="100"
+                                    Maximum="100"
+                                    Minimum="0"
+                   Style="{StaticResource BasicSlider}" />
+                        <TextBlock Text="Daily"
+                                       Grid.Row="1"
+                                       Grid.Column="1"
+                                       VerticalAlignment="Top"
+                                       HorizontalAlignment="Left" />
+                        <TextBlock Text="Weekly"
+                                       Grid.Row="1"
+                                       Grid.Column="2"
+                                       VerticalAlignment="Top"
+                                       HorizontalAlignment="Right" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="sc:DaysOfWeek">
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <sc:DaysOfWeekItemsPanel/>
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="sc:DayContentItem">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="sc:DayContentItem">
+                    <Border
+                        x:Name="brdRoot"
+                        BorderBrush="Black"
+                        BorderThickness="0.1"
+                        Background="{TemplateBinding Background}"
+                        Width="{TemplateBinding Width}"
+                        Height="{TemplateBinding Height}"
+                        >
+                        <Grid Opacity="{TemplateBinding MouseOverOpacity}">
+                            <Border
+                                x:Name="brdAddApp"
+                                CornerRadius="4,4,4,4"
+                                DragDrop:DragDrop.IsTarget="True"
+                                DragDrop:DragDrop.DropCommand="{Binding ControlDropCommand}"
+                                DragDrop:DragDrop.DragMode="Copy"
+                                >
+                                <TextBlock  Text="Drop Here"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            
+                                     />
+                            </Border>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="sc:DayContent">
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical"/>
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="sc:DayContent">
+                    <Border>
+                        <ScrollViewer x:Name="svContent"
+                                      Padding="0"
+                                      BorderThickness="1"
+                                      Style="{StaticResource ScrollViewerStyle}">
+                            <Grid x:Name="PART_dayContentGrid">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <sc:TimeSlots x:Name="PART_TimeSlots"
+                                              BorderThickness="1"
+                                              Grid.Column="0"
+                                              />
+                                <ItemsPresenter Grid.Column="1" Grid.ColumnSpan="2"/>
+                            </Grid>
+
+                        </ScrollViewer>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="sc:WeekContent">
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="sc:WeekContent">
+                    <ScrollViewer x:Name="svContent"
+                                  Padding="0"
+                                  BorderThickness="0,1,0,0"
+                                  Style="{StaticResource ScrollViewerStyle}">
+                        <Grid x:Name="PART_dayContentGrid">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <sc:TimeSlots x:Name="PART_TimeSlots"
+                                          BorderThickness="0,0,0,1"
+                                          BorderBrush="#4C535C"
+                                           Grid.Column="0"
+                                          />
+                            <ItemsPresenter Grid.Column="1" Grid.ColumnSpan="2" />
+                        </Grid>
+                    </ScrollViewer>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>
