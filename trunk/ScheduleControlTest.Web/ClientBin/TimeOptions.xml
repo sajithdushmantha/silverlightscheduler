@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Timeline>
+  <Minutes>
+    <Min>10</Min>
+    <MinutesPerHour>60</MinutesPerHour>
+    <Major>10</Major>
+    <TimeSlotPerMinute>5</TimeSlotPerMinute>
+  </Minutes>
+  <Hours>
+    <Min>00</Min>
+    <HoursPerDay>24</HoursPerDay>
+    <Major>1</Major>
+    <TimeSlotPerHour>5</TimeSlotPerHour>
+  </Hours>
+</Timeline>
