@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TimeSlots>
+  <TimeSlotItemHieght>20</TimeSlotItemHieght>
+  <HoursSettings>
+    <TimeSlotPerHour>15</TimeSlotPerHour>
+    <HoursPerDay>24</HoursPerDay>
+  </HoursSettings>
+</TimeSlots>
