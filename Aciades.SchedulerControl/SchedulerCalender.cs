@@ -2,9 +2,11 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using Aciades.Businessnext.SchedulerControl.Common;
+using Aciades.BusinessNext.SchedulerControl;
+using Aciades.BusinessNext.SchedulerControl.Common;
+using Aciades.BusinessNext.SchedulerControl.ViewModel;
 
-namespace Aciades.Businessnext.SchedulerControl
+namespace Aciades.BusinessNext.SchedulerControl
 {
     public class SchedulerCalender : Control
     {
@@ -25,19 +27,19 @@ namespace Aciades.Businessnext.SchedulerControl
             CurrentDate = (DateTime)e.NewValue;
         }
 
-        public Common.Enumerations.DateView CurrentDateView
+        public Enumerations.DateView CurrentDateView
         {
-            get { return (Common.Enumerations.DateView)GetValue(CurrentDateViewProperty); }
+            get { return (Enumerations.DateView)GetValue(CurrentDateViewProperty); }
             set { SetValue(CurrentDateViewProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for CurrentDateView.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CurrentDateViewProperty =
-            DependencyProperty.Register("CurrentDateView", typeof(Common.Enumerations.DateView), typeof(SchedulerCalender), new PropertyMetadata((s, e) => ((SchedulerCalender)s).OnCurrentDateView_Changed(e)));
+            DependencyProperty.Register("CurrentDateView", typeof(Enumerations.DateView), typeof(SchedulerCalender), new PropertyMetadata((s, e) => ((SchedulerCalender)s).OnCurrentDateView_Changed(e)));
 
         private void OnCurrentDateView_Changed(DependencyPropertyChangedEventArgs e)
         {
-            CurrentDateView = (Common.Enumerations.DateView)e.NewValue;
+            CurrentDateView = (Enumerations.DateView)e.NewValue;
         }
 
 
@@ -131,13 +133,12 @@ namespace Aciades.Businessnext.SchedulerControl
 
         private void SetBindings()
         {
-            var view = new ViewModel.SchedulerModel()
+            var view = new SchedulerModel()
                            {
                                CurrentDate = DateTime.Now,
                                CurrentDateView = Enumerations.DateView.Day
                            };
-
-            DataContext = view;
+            view.ViewModelLoaded += OnViewModelLoaded;
 
             Binding b1 = new Binding() { Path = new PropertyPath("TimeSlotPerHour"), Mode = BindingMode.TwoWay, Source = view };
             SetBinding(TimeSlotPerHourProperty, b1);
@@ -158,7 +159,21 @@ namespace Aciades.Businessnext.SchedulerControl
             this.SetBinding(CurrentDateProperty, b4);
 
             daysofweek.SetBinding(DaysOfWeek.CurrentDateProperty, b3);
+        }
 
+        private void OnViewModelLoaded(object sender, EventArgs e)
+        {
+            var view = (sender as SchedulerModel);
+            view.ViewModelLoaded -= OnViewModelLoaded;
+            DataContext = view;
+
+            Binding b1 = new Binding() { Path = new PropertyPath("TimeSlotPerHour"), Mode = BindingMode.TwoWay, Source = view };
+            SetBinding(TimeSlotPerHourProperty, b1);
+            _Content.SetBinding(ucContent.TimeSlotPerHourProperty, b1);
+
+            Binding b2 = new Binding { Path = new PropertyPath("HoursPerDay"), Mode = BindingMode.TwoWay, Source = view };
+            this.SetBinding(HoursPerDayProperty, b2);
+            _Content.SetBinding(ucContent.HoursPerDayProperty, b2);
 
         }
     }

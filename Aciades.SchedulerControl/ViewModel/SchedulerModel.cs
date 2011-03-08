@@ -8,11 +8,12 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using Aciades.Businessnext.SchedulerControl.Common;
+using Aciades.BusinessNext.SchedulerControl.Common;
+using Aciades.BusinessNext.SchedulerControl.DataAccess;
 using Acidaes.BusinessNext.UI.Silverlight;
 using Acidaes.UI.Silverlight.DragDrop;
 
-namespace Aciades.Businessnext.SchedulerControl.ViewModel
+namespace Aciades.BusinessNext.SchedulerControl.ViewModel
 {
     public class SchedulerModel : BindableModel
     {
@@ -73,7 +74,7 @@ namespace Aciades.Businessnext.SchedulerControl.ViewModel
             }
         }
 
-        private Enumerations.TimeSlotsPerHour timeslotPerHour = Enumerations.TimeSlotsPerHour.Fifteen;
+        private Enumerations.TimeSlotsPerHour timeslotPerHour = Enumerations.TimeSlotsPerHour.Thirty;
         private Enumerations.HoursPerDay hoursperDay = Enumerations.HoursPerDay.TwentyFour;
 
         public Enumerations.TimeSlotsPerHour TimeSlotPerHour
@@ -132,9 +133,24 @@ namespace Aciades.Businessnext.SchedulerControl.ViewModel
 
         #endregion
 
+        public event EventHandler ViewModelLoaded;
+
         public SchedulerModel()
         {
             ControlDropCommand = new DropCommand(Command_OnDrop);
+            SettingsProvider provider = new SettingsProvider();
+            provider.SettingsLoaded += OnSettingsLoaded;
+            provider.RequestSettings("");
+
+        }
+
+        private void OnSettingsLoaded(object sender, DownloadStringCompletedEventArgs e)
+        {
+            TimeSlotPerHour = (Enumerations.TimeSlotsPerHour) Convert.ToInt32((sender as SettingsProvider).TimeSlotPerHour);
+            HoursPerDay= (Enumerations.HoursPerDay)Convert.ToInt32((sender as SettingsProvider).HoursPerDay);
+
+            if (ViewModelLoaded != null)
+                ViewModelLoaded(this, null);
         }
 
         public virtual void Command_OnDrop(object sender, DropCommandArgs args)

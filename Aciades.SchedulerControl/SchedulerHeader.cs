@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace Aciades.Businessnext.SchedulerControl
+namespace Aciades.BusinessNext.SchedulerControl
 {
     public class SchedulerHeader : Control
     {

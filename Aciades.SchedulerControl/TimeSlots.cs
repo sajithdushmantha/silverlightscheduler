@@ -8,10 +8,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
-using Aciades.Businessnext.SchedulerControl.Common;
-using Aciades.Businessnext.SchedulerControl.DataAccess;
+using Aciades.BusinessNext.SchedulerControl.Common;
+using Aciades.BusinessNext.SchedulerControl.DataAccess;
 
-namespace Aciades.Businessnext.SchedulerControl
+namespace Aciades.BusinessNext.SchedulerControl
 {
     public class TimeSlots : ItemsControl
     {
@@ -61,7 +61,13 @@ namespace Aciades.Businessnext.SchedulerControl
         private void PopulateTimeSlots()
         {
             TimeSlotProvider provider = new TimeSlotProvider(this);
-            ItemsSource = provider.GetTimeSlot();
+            provider.RequestTimeSlotCompleted += OnRequestTimeSlots;
+            provider.RequestTimeSlots();
+        }
+
+        void OnRequestTimeSlots(object sender, EventArgs e)
+        {
+            ItemsSource = (sender as TimeSlotProvider);
         }
     }
 }

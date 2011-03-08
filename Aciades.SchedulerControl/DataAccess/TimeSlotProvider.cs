@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Net;
+using System.Xml.Linq;
+using System.Xml.XPath;
 
-namespace Aciades.Businessnext.SchedulerControl.DataAccess
+namespace Aciades.BusinessNext.SchedulerControl.DataAccess
 {
     /// <summary>
     /// Provider class for TimeSlot.
@@ -10,18 +13,49 @@ namespace Aciades.Businessnext.SchedulerControl.DataAccess
     public class TimeSlotProvider : ObservableCollection<TimeSlotItem>
     {
         private TimeSlots _owner = null;
+        private XDocument document = null;
+
+        int TimeSlotHeight = 20;
+        int hoursPerDay = 24;
+        int loopMinutues;
+        int loopHours;
 
         public TimeSlotProvider(TimeSlots owner)
         {
             this._owner = owner;
         }
 
-        public ObservableCollection<TimeSlotItem> GetTimeSlot()
+        public event EventHandler RequestTimeSlotCompleted;
+
+
+
+        public void RequestTimeSlots()
         {
-            int TimeSlotHeight = 20;
-            
-            int loopMinutues = 60 / (int)Common.Enumerations.TimeSlotsPerHour.Fifteen;
-            int loopHours = 24 / (int)Common.Enumerations.HoursPerDay.TwentyFour;
+            SettingsProvider provider = new SettingsProvider();
+            provider.RequestSettings("");
+            provider.SettingsLoaded += OnSettingLoaded;
+        }
+
+        int timeSlotPerHour = 15;
+
+        private void OnSettingLoaded(object sender, DownloadStringCompletedEventArgs e)
+        {
+            if (e.Error == null)
+            {
+                var provider = (sender as SettingsProvider);
+                provider.SettingsLoaded -= OnSettingLoaded;
+                TimeSlotHeight = provider.TimeSlotHeight;
+                hoursPerDay = provider.HoursPerDay;
+                timeSlotPerHour = provider.TimeSlotPerHour;
+                GetTimeSlot();
+            }
+        }
+
+        private void GetTimeSlot()
+        {
+            loopHours = 24 / hoursPerDay;
+
+            loopMinutues = 60 / timeSlotPerHour;
 
             TimeSpan tsStart = new TimeSpan(0, 0, 0);
             TimeSpan tsEnd = new TimeSpan(24, 0, 0);
@@ -63,7 +97,9 @@ namespace Aciades.Businessnext.SchedulerControl.DataAccess
                 tsStart += tsTimeScale;
 
             }
-            return this;
+
+            if (RequestTimeSlotCompleted != null)
+                RequestTimeSlotCompleted(this, null);
         }
     }
 }
